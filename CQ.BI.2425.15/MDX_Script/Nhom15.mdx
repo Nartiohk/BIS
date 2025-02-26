@@ -1,0 +1,212 @@
+--Cau 1: Report the min and max of AQI value for each State during each quarter of
+--years.
+SELECT NON EMPTY { [Measures].[Maximum AQI], [Measures].[Minimum AQI] } ON COLUMNS,
+ NON EMPTY { ([Dim Day].[Quarter Value].[Quarter Value].ALLMEMBERS * 
+			 [Dim Day].[Year Value].[Year Value].ALLMEMBERS * 
+			 [Dim Counties].[State Name].[State Name].ALLMEMBERS ) } ON ROWS
+ FROM [DDS]
+
+--Cau 2: Report the mean and the standard deviation of AQI value for each State during
+--each quarter of years
+WITH
+ MEMBER [Measures].[Avg Daily AQI] AS 
+   
+        [Measures].[AQI]/[Measures].[Fact Air Quality Data Count]
+	
+MEMBER [Measures].[Square Sum AQI] AS 
+    SUM(
+        { 
+           EXISTING [Dim Counties].[County Ascii].[County Ascii] * 
+           EXISTING [Dim Day].[Day Value].[Day Value] * 
+           EXISTING [Dim Day].[Quarter Value].[Quarter Value] * 
+           EXISTING [Dim Day].[Month Value].[Month Value] *
+           EXISTING [Dim Day].[Year Value].[Year Value]
+        },
+        [Measures].[Square of AQI]
+    )
+MEMBER [Measures].[StdDev] AS 
+	(([Measures].[Square Sum AQI] - ([Measures].[Square of AQI]/[Measures].[Fact Air Quality Data Count]))/[Measures].[Fact Air Quality Data Count]) ^ 0.5
+SELECT 
+    NON EMPTY {[Measures].[Avg Daily AQI], [Measures].[StdDev]} ON COLUMNS, 
+    NON EMPTY { 
+        FILTER(
+            [Dim Counties].[State Name].[State Name] * 
+            [Dim Day].[Quarter Value].[Quarter Value] * 
+            [Dim Day].[Year Value].[Year Value],
+            NOT ISEMPTY([Measures].[Avg Daily AQI]) AND
+            NOT ISEMPTY([Measures].[StdDev])
+        )
+    } ON ROWS 
+FROM [DDS]
+--Cau 3: Report the number of days, and the mean AQI value where the air quality is rated
+--as "very unhealthy" or worse for each State and County.
+WITH 
+MEMBER [Measures].[Average AQI] AS
+    AVG(
+        FILTER(
+            EXISTING [Dim Counties].[State Name].[State Name].Members *
+            EXISTING [Dim Counties].[County Ascii].[County Ascii].Members *
+            EXISTING [Dim Day].[Day Value].[Day Value].Members *
+            EXISTING [Dim Day].[Month Value].[Month Value].Members *
+            EXISTING [Dim Day].[Year Value].[Year Value].Members,
+            [Measures].[AQI] > 200
+        ), 
+        [Measures].[AQI]
+    )
+MEMBER [Measures].[AQI Count] AS
+    SUM(
+        FILTER(
+            EXISTING [Dim Counties].[State Name].[State Name].Members *
+            EXISTING [Dim Counties].[County Ascii].[County Ascii].Members *
+            EXISTING [Dim Day].[Day Value].[Day Value].Members *
+            EXISTING [Dim Day].[Month Value].[Month Value].Members *
+            EXISTING [Dim Day].[Year Value].[Year Value].Members,
+            [Measures].[AQI] > 200
+        ),
+        1
+    )
+SELECT 
+    NON EMPTY { [Measures].[Average AQI], [Measures].[AQI Count] } ON COLUMNS, 
+    NON EMPTY { 
+        [Dim Counties].[State Name].[State Name].ALLMEMBERS *
+        [Dim Counties].[County Ascii].[County Ascii].ALLMEMBERS 
+    } ON ROWS 
+FROM [DDS]
+
+--Cau 4: For the four following states: Hawaii, Alaska, Illinois and Delaware, count the
+--number of days in each air quality Category (Good, Moderate,etc.) by County.
+SELECT 
+    NON EMPTY { [Measures].[Fact Air Quality Data Count] } ON COLUMNS, 
+    NON EMPTY { 
+        ([Dim Counties].[County Ascii].[County Ascii].ALLMEMBERS 
+        * {[Dim Counties].[State Name].&[Hawaii], 
+           [Dim Counties].[State Name].&[Alaska], 
+           [Dim Counties].[State Name].&[Illinois], 
+           [Dim Counties].[State Name].&[Delaware]} 
+        * [Dim Category].[Category Value].[Category Value].ALLMEMBERS) 
+    } ON ROWS 
+FROM [DDS]
+
+--Cau 5:For the four following states: Hawaii, Alaska, Illinois and Delaware, compute the
+--mean AQI value by quarters.
+WITH 
+    MEMBER [Measures].[Valid AQI Count] AS
+        COUNT(
+            FILTER(
+                [Measures].[AQI], 
+                NOT ISEMPTY([Measures].[AQI])
+            )
+        )
+
+    MEMBER [Measures].[Average AQI] AS 
+        IIF(
+            [Measures].[Valid AQI Count] > 0,
+            [Measures].[AQI] / [Measures].[Fact Air Quality Data Count],
+            NULL
+        )
+
+SELECT 
+    {
+    [Measures].[Average AQI] 
+	}
+	ON COLUMNS,
+	NON EMPTY
+     {
+         [Dim Counties].[State Name].&[Hawaii],
+		 [Dim Counties].[State Name].&[Alaska],
+		 [Dim Counties].[State Name].&[Illinois],
+		 [Dim Counties].[State Name].&[California]
+        
+    } *
+    [Dim Day].[Quarter Value].[Quarter Value].MEMBERS 
+ON ROWS
+FROM [DDS]
+
+--Cau 6: Design a report to demonstrate the AQI fluctuation trends over the year for the four
+--following states: Hawaii, Alaska, Illinois and California.
+WITH
+ MEMBER [Measures].[Avg Daily AQI] AS 
+   
+        [Measures].[AQI]/[Measures].[Fact Air Quality Data Count]
+ 
+SELECT 
+NON EMPTY { [Measures].[Minimum AQI], [Measures].[Maximum AQI], [Measures].[Avg Daily AQI] } ON COLUMNS, 
+NON EMPTY { ([Dim Day].[Month Value].[Month Value].ALLMEMBERS * 
+[Dim Day].[Year Value].[Year Value].ALLMEMBERS * 
+{[Dim Counties].[State Name].[State Name].[Hawaii],
+[Dim Counties].[State Name].[State Name].[Alaska],
+[Dim Counties].[State Name].[State Name].[Illinois],
+[Dim Counties].[State Name].[State Name].[California]} ) } ON ROWS 
+FROM [DDS]
+-------------Bonus----------
+--Cau 9: Report the mean, the standard deviation, min and max of AQI value group by
+--State and County during each quarter of the year.
+WITH
+ MEMBER [Measures].[Avg Daily AQI] AS 
+   
+        [Measures].[AQI]/[Measures].[Fact Air Quality Data Count]
+	
+MEMBER [Measures].[Square Sum AQI] AS 
+    SUM(
+        { 
+           EXISTING [Dim Counties].[County Ascii].[County Ascii] * 
+           EXISTING [Dim Day].[Day Value].[Day Value] * 
+           EXISTING [Dim Day].[Quarter Value].[Quarter Value] * 
+           EXISTING [Dim Day].[Month Value].[Month Value] *
+           EXISTING [Dim Day].[Year Value].[Year Value]
+        },
+        [Measures].[Square of AQI]
+    )
+MEMBER [Measures].[StdDev] AS 
+	(([Measures].[Square Sum AQI] - ([Measures].[Square of AQI]/[Measures].[Fact Air Quality Data Count]))/[Measures].[Fact Air Quality Data Count]) ^ 0.5
+SELECT 
+    NON EMPTY {[Measures].[Avg Daily AQI], [Measures].[StdDev], [Measures].[Maximum AQI], [Measures].[Minimum AQI]} ON COLUMNS, 
+    NON EMPTY { 
+        FILTER(
+            [Dim Counties].[State Name].[State Name] * 
+            [Dim Day].[Quarter Value].[Quarter Value] * 
+			[Dim Counties].[County Ascii].[County Ascii] *
+            [Dim Day].[Year Value].[Year Value],
+            NOT ISEMPTY([Measures].[Avg Daily AQI]) AND
+			NOT ISEMPTY([Measures].[Maximum AQI]) AND
+			NOT ISEMPTY([Measures].[Minimum AQI]) AND
+            NOT ISEMPTY([Measures].[StdDev])
+        )
+    } ON ROWS 
+FROM [DDS]
+--Cau 10: Report the mean AQI value by State, Category, DayLightSaving over years.
+WITH
+ MEMBER [Measures].[Avg Daily AQI] AS 
+   
+        [Measures].[AQI]/[Measures].[Fact Air Quality Data Count]
+SELECT 
+    NON EMPTY { [Measures].[Avg Daily AQI] } ON COLUMNS,
+    NON EMPTY { 
+        [Dim Counties].[State Name].[State Name].ALLMEMBERS * 
+        [Dim Day].[Quarter Value].[Quarter Value].ALLMEMBERS * 
+        [Dim Day].[Year Value].[Year Value].ALLMEMBERS * 
+        [Dim Day].[Day Light Saving].[Day Light Saving].ALLMEMBERS 
+    } ON ROWS
+FROM [DDS]
+--Cau 11: Count the number of days by State, Category in each month.
+SELECT 
+    NON EMPTY { [Measures].[Day Id Distinct Count] } ON COLUMNS, 
+    NON EMPTY 
+        { 
+            [Dim Counties].[State Name].[State Name] *
+            [Dim Category].[Category Value].[Category Value] *
+            [Dim Day].[Month Value].[Month Value] 
+        } 
+    ON ROWS 
+FROM [DDS]
+--Cau 12: Report the number of days by Category and Defining Parameter.
+SELECT 
+    NON EMPTY { [Measures].[Day Id Distinct Count] } ON COLUMNS, 
+    NON EMPTY 
+        { 
+            [Dim Category].[Category Value].[Category Value] *
+            [Dim Defining Parameter].[Defining Parameter].[Defining Parameter] 
+        } 
+    ON ROWS 
+FROM [DDS]
+

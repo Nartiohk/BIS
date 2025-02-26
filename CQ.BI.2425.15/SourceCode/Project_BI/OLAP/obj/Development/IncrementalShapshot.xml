@@ -1,0 +1,124 @@
+﻿<DeploymentSnapshot xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:ddl400="http://schemas.microsoft.com/analysisservices/2012/engine/400" xmlns:ddl400_400="http://schemas.microsoft.com/analysisservices/2012/engine/400/400" xmlns:ddl500="http://schemas.microsoft.com/analysisservices/2013/engine/500" xmlns:ddl500_500="http://schemas.microsoft.com/analysisservices/2013/engine/500/500" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0">
+  <Target>
+    <Database>OLAP</Database>
+    <Server>LAPTOP-5GI3DC0I\MSSQLSERVER01</Server>
+    <ConnectionString>Data Source=LAPTOP-5GI3DC0I\MSSQLSERVER01;Timeout=0</ConnectionString>
+  </Target>
+  <Options>
+    <TransactionalDeployment>false</TransactionalDeployment>
+    <PartitionDeployment>DeployPartitions</PartitionDeployment>
+    <RoleDeployment>DeployRolesRetainMembers</RoleDeployment>
+    <ProcessingOption>DoNotProcess</ProcessingOption>
+    <OutputScript></OutputScript>
+    <ImpactAnalysisFile></ImpactAnalysisFile>
+    <ConfigurationSettingsDeployment>Deploy</ConfigurationSettingsDeployment>
+    <OptimizationSettingsDeployment>Deploy</OptimizationSettingsDeployment>
+    <WriteBackTableCreation>UseExisting</WriteBackTableCreation>
+  </Options>
+  <Snapshot>
+    <ObjectSnapshots>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.RelationalDataSource</Type>
+        <TimeStamp>yfGTgz13EPlBAOLhlC7o145M9SE=26/12/2024 13:51:1826/12/2024 13:51:18</TimeStamp>
+        <ID>
+          <String>DDS</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.DataSourceView</Type>
+        <TimeStamp>LKegsxHDysIpvqdmWXEEFHSGurs=22/12/2024 16:17:4222/12/2024 16:42:13</TimeStamp>
+        <ID>
+          <String>DataMining_Day</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.DataSourceView</Type>
+        <TimeStamp>C04FnjEfl+Gx+5dRjlJ59BF22yY=22/12/2024 16:17:5622/12/2024 16:42:13</TimeStamp>
+        <ID>
+          <String>DataMining_Month</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.DataSourceView</Type>
+        <TimeStamp>IvuUCc9dOoM55EVJb0o9ywPMID8=22/12/2024 16:18:3222/12/2024 16:42:13</TimeStamp>
+        <ID>
+          <String>DataMining_Year</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.DataSourceView</Type>
+        <TimeStamp>QpIypm+ISIbSOfWbmHUmmKtxKd4=26/12/2024 13:52:0526/12/2024 13:51:33</TimeStamp>
+        <ID>
+          <String>DDS</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>k2Wq9SzmyZ5d2d+Fc0rfIkC+Qr4=26/12/2024 13:57:1526/12/2024 13:52:05</TimeStamp>
+        <ID>
+          <String>Dim Defining Parameter</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>ZibRlMqD26aXhS03cfQECrHxzD0=26/12/2024 18:18:0026/12/2024 13:52:05</TimeStamp>
+        <ID>
+          <String>Dim Day</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>pRR/xVHtF1dHJVzE2HbCVH9I5bc=26/12/2024 13:57:1526/12/2024 13:52:05</TimeStamp>
+        <ID>
+          <String>Dim Category</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>WaT/uG/CyxOKj+9g9qKvvweN7j4=26/12/2024 13:57:1526/12/2024 13:52:05</TimeStamp>
+        <ID>
+          <String>Dim Counties</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Cube</Type>
+        <TimeStamp>8jz+6KUgbBVP1VmUjczGqY/lNR4=29/12/2024 01:24:4526/12/2024 13:52:05zYNRiVm1b0Tj3pTn7Wym/ABSUn8=29/12/2024 01:24:4526/12/2024 13:52:05</TimeStamp>
+        <ID>
+          <String>DDS</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.MiningStructure</Type>
+        <TimeStamp>koEGpXaMhmM2H+YWyM7KChGFijU=22/12/2024 16:18:5322/12/2024 16:42:13</TimeStamp>
+        <ID>
+          <String>Data Mining Day</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.MiningStructure</Type>
+        <TimeStamp>Ql5Cq9OcSzJTobjOM4mBLUzJYEw=22/12/2024 16:21:1522/12/2024 16:42:13</TimeStamp>
+        <ID>
+          <String>Data Mining Month</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.MiningStructure</Type>
+        <TimeStamp>DuIpKQFvm3Hcm7MRPqdrWwzpqGg=22/12/2024 16:24:5022/12/2024 16:42:13</TimeStamp>
+        <ID>
+          <String>Data Mining Year</String>
+        </ID>
+      </ObjectSnapshot>
+    </ObjectSnapshots>
+    <DatabaseSnapshot>
+      <Type>Microsoft.AnalysisServices.Database</Type>
+      <TimeStamp>FIQalgwwfBwEYWNtVqFqZKTy/HA=30/11/2024 13:47:4322/12/2024 16:42:13</TimeStamp>
+      <ID>
+        <String>OLAP</String>
+      </ID>
+    </DatabaseSnapshot>
+    <Granularity>Coarse</Granularity>
+  </Snapshot>
+  <AssemblyLocations />
+  <ProcessingComplete>true</ProcessingComplete>
+  <LastDeployed>2024-12-29T10:14:34.446667Z</LastDeployed>
+</DeploymentSnapshot>

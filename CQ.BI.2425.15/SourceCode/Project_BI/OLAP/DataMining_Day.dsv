@@ -1,0 +1,69 @@
+﻿<DataSourceView xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:ddl400="http://schemas.microsoft.com/analysisservices/2012/engine/400" xmlns:ddl400_400="http://schemas.microsoft.com/analysisservices/2012/engine/400/400" xmlns:ddl500="http://schemas.microsoft.com/analysisservices/2013/engine/500" xmlns:ddl500_500="http://schemas.microsoft.com/analysisservices/2013/engine/500/500" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="a4f699d0-520c-4c4b-b04b-e136aa54c4db" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+  <ID>DataMining_Day</ID>
+  <Name>DataMining_Day</Name>
+  <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+  <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+  <Annotations>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ShowFriendlyNames</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:CurrentLayout</Name>
+      <Value>_ALL_TABLES_</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:SchemaRestriction</Name>
+      <Value></Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:RetrieveRelationships</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:Layouts</Name>
+      <Value>
+        <Layouts xmlns="">
+          <Diagram>
+            <Name>_ALL_TABLES_</Name>
+            <DiagramLayout />
+            <ShowRelationshipNames>False</ShowRelationshipNames>
+            <UseDiagramDefaultLayout>True</UseDiagramDefaultLayout>
+            <DiagramViewPortLeft>0</DiagramViewPortLeft>
+            <DiagramViewPortTop>0</DiagramViewPortTop>
+            <DiagramBoundingLeft>0</DiagramBoundingLeft>
+            <DiagramBoundingTop>0</DiagramBoundingTop>
+            <DiagramZoom>100</DiagramZoom>
+          </Diagram>
+        </Layouts>
+      </Value>
+    </Annotation>
+  </Annotations>
+  <DataSourceID>DDS</DataSourceID>
+  <Schema>
+    <xs:schema id="DataMining_Day" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+      <xs:element name="DataMining_Day" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:design-time-name="1c2fbccb-bbeb-4db9-8723-9cdde77253c3">
+        <xs:complexType>
+          <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="dbo_DataMining_Day" msprop:design-time-name="512f5dc2-3f29-443d-acc0-42fb438fef2f" msprop:DbTableName="DataMining_Day" msprop:FriendlyName="DataMining_Day" msprop:DbSchemaName="dbo" msprop:TableType="Table">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="AirQualityData_Key" msdata:ReadOnly="true" msdata:AutoIncrement="true" msprop:design-time-name="2d4d8e63-64eb-4b22-9b7c-7e85b24cc95b" msprop:DbColumnName="AirQualityData_Key" msprop:FriendlyName="AirQualityData_Key" type="xs:int" />
+                  <xs:element name="Date" msprop:design-time-name="29030039-7ce0-4708-a392-ca3bf1652447" msprop:DbColumnName="Date" msprop:FriendlyName="Date" type="xs:dateTime" minOccurs="0" />
+                  <xs:element name="AverageAQI" msprop:design-time-name="771d4047-11a0-406a-8c71-1ea63ae28cd1" msprop:DbColumnName="AverageAQI" msprop:FriendlyName="AverageAQI" type="xs:int" minOccurs="0" />
+                  <xs:element name="MaxAQI" msprop:design-time-name="9a7e761d-ea27-463a-ac93-c53b4e0b1880" msprop:DbColumnName="MaxAQI" msprop:FriendlyName="MaxAQI" type="xs:int" minOccurs="0" />
+                  <xs:element name="MinAQI" msprop:design-time-name="14f3bfd7-c8ac-44eb-bd73-3233be1aa2bf" msprop:DbColumnName="MinAQI" msprop:FriendlyName="MinAQI" type="xs:int" minOccurs="0" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:choice>
+        </xs:complexType>
+        <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+          <xs:selector xpath=".//dbo_DataMining_Day" />
+          <xs:field xpath="AirQualityData_Key" />
+        </xs:unique>
+      </xs:element>
+    </xs:schema>
+    <DataMining_Day xmlns="" />
+  </Schema>
+</DataSourceView>
